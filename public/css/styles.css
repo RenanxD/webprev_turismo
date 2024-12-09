@@ -1,0 +1,652 @@
+body {
+    background-color: #f8f8f8;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+body, html {
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.quadros-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.quadro-item {
+    flex: 1;
+    min-width: 220px;
+    max-width: 24%;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.invalid-feedback {
+    display: none;
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #dc3545;
+}
+
+.invalid-feedback.show {
+    display: flex;
+}
+
+.is-invalid {
+    border: 1px solid red; /* Adicione uma borda vermelha aos campos inválidos */
+}
+
+.quadro {
+    height: 230px;
+    width: 100%;
+    background-color: white;
+    color: black;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+    padding: 16px;
+}
+
+.quadro:hover {
+    background-color: #f9fafb;
+}
+
+.quadro-titulo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.quadro-subtitulo {
+    margin-top: 8px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.max-w-7xl {
+    max-width: 100rem;
+}
+
+.btn-back {
+    background: none;
+    border: none;
+    color: #4A5568;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.btn-back svg {
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.btn-back:hover {
+    color: #2D3748;
+}
+
+.ml-6 {
+    margin-left: 25px;
+}
+
+.circle {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #e5e7eb;
+}
+
+.arrow-icon {
+    width: 18px;
+    height: 18px;
+    color: #000000;
+}
+
+.card-body {
+    position: relative;
+}
+
+.btn-custom {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #e0e0e0;
+    color: #333;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    margin-right: 10px; /* Adiciona espaçamento à direita entre os botões */
+}
+
+.btn-custom:hover {
+    background-color: #d0d0d0;
+    border-color: #b3b3b3;
+}
+
+.btn-custom:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.1);
+}
+
+.btn-custom:disabled {
+    opacity: 0.65;
+    pointer-events: none;
+}
+
+.ml-2 {
+    margin-left: 10px;
+}
+
+.d-flex {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-edit {
+    position: static;
+    margin-right: 10px;
+}
+
+.quadro-item a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.quadro-item a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.blocked-label {
+    cursor: not-allowed;
+}
+
+#wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    width: 250px;
+    margin-left: -250px;
+    transition: margin 0.25s ease-out;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    padding: 20px;
+}
+
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+}
+
+.py-12 {
+    padding-top: 15px;
+}
+
+.mb-3, .my-3 {
+    margin-bottom: 0 !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.btn i {
+    font-size: 1.2em;
+    color: #fff;
+}
+.table th, .table td {
+    font-size: 0.9rem;
+    padding: 12px;
+}
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: background-color 0.3s ease;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+.table, .table th, .table td {
+    border: 1px solid #dee2e6;
+}
+.table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+}
+.table th {
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: bold;
+}
+.table-responsive {
+    overflow-x: auto;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 1s ease-out;
+}
+
+.form-step {
+    display: none;
+}
+
+.form-step-active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.progress-bar {
+    background-color: #5cb85c; /* Cor verde para a barra de progresso */
+    font-weight: bold; /* Texto em negrito */
+}
+
+.progress-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    color: #555;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.progress-circle.inactive {
+    background-color: #fff; /* Background for inactive steps */
+    color: #555; /* Text color for inactive */
+    border-color: #ccc; /* Border color for inactive */
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.progress-circle.active {
+    background-color: #d0e7ff;
+    color: #4a90e2 !important;
+    border-color: #4a90e2;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.progress-circle.completed {
+    background-color: #d0e7ff; /* Cor de fundo azul para o círculo completado */
+    color: #fff; /* Cor do texto dentro do círculo */
+    border-color: #4a90e2; /* Cor da borda azul */
+}
+
+.progress-circle.completed:before {
+    content: '\f00c'; /* Código Unicode para o ícone de check */
+    font-family: 'Font Awesome 5 Free', serif; /* Certifique-se de que você está usando a fonte correta */
+    font-weight: 900; /* Usar o peso correto para o ícone */
+    color: #4a90e2; /* Cor do ícone */
+    font-size: 16px; /* Tamanho do ícone */
+}
+
+.progress-line {
+    width: 100px;
+    height: 2px;
+    background-color: #ccc;
+    transition: background-color 0.3s ease;
+}
+
+.progress-line.completed {
+    background-color: #4a90e2;
+}
+
+#ruaField, #bairroField, #numeroField {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(-10px);
+    opacity: 0;
+}
+
+#ruaField.show, #bairroField.show, #numeroField.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.is-valid {
+    border-color: #28a745;
+}
+
+.is-invalid {
+    border-color: #F44336;
+}
+
+.required-message {
+    color: #F44336;
+    font-size: 0.8rem;
+    display: none;
+}
+
+.required-message.show {
+    display: block;
+}
+
+.btn-block {
+    width: auto;
+    margin-right: 0.5rem;
+}
+
+.progress-info {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.taxa-message {
+    color: #4a90e2;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Define a borda azul padrão */
+.form-control-date {
+    border: 1px solid #4a90e2;
+}
+
+/* Muda a borda para azul mais escura ao focar */
+.form-control-date:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5); /* Adiciona um efeito de sombra */
+}
+
+/* Define a borda ao passar o mouse */
+.form-control-date:hover {
+    border-color: #4a90e2;
+}
+
+.form-control-date {
+    display: block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.form-control-date:focus-visible {
+    border-color: #007bff; /* Altere a cor da borda como desejar */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Adicione um efeito de sombra se necessário */
+}
+
+.divider-text {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.divider-text span {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.divider-text hr {
+    flex-grow: 1;
+    border: none;
+    border-top: 1px solid #d8d8d8;
+    margin-right: 20px;
+    margin-left: 14px;
+}
+
+.divider-text {
+    cursor: pointer; /* Indica que a div é clicável */
+}
+
+.collapse {
+    transition: height 0.3s ease; /* Transição suave */
+    overflow: hidden; /* Esconde o conteúdo que excede o tamanho */
+}
+
+.arrow {
+    transition: transform 0.3s ease; /* Animação para a rotação da seta */
+}
+
+.collapse:not(.show) .arrow {
+    transform: rotate(180deg); /* Rotaciona a seta para baixo quando fechado */
+}
+
+.cadastro-container {
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+}
+
+.btn-login {
+    width: 100%;
+    height: 4.7rem;
+    border-radius: 0.5rem;
+    line-height: 35px;
+    border-radius: 0.5rem;
+    height: 3.7rem;
+    margin: 10px 0;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-comprovante {
+    width: 100%;
+    height: 3.7rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: bold;
+}
+
+.btn-comprovante:hover {
+    background-color: #d3d3d3;
+}
+
+.email-container {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.email-label {
+    position: absolute;
+    top: -7px;
+    left: 15px;
+    background-color: white;
+    padding: 0 5px;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.email-tag {
+    border-radius: 0.5rem;
+    padding: 15px 10px;
+    font-size: 14px;
+    color: #333;
+    border: solid 1px #eee;
+    width: 100%;
+    text-align: center;
+}
+
+.logo {
+    margin-bottom: 20px;
+    margin-top: 10rem;
+}
+
+.btn-emissao {
+    text-decoration: underline;
+    height: 4.7rem;
+}
+
+.btn-emissao:hover {
+    text-decoration: underline;
+}
+
+.centralizar-texto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px 20px;
+    width: 100%;
+}
+
+.login-container {
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.line-login {
+    display: flex;
+    align-items: center;
+}
+
+.line-signin {
+    flex-grow: 1;
+    border: none;
+    border-top: 1px solid #EEEEEE;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.welcome-title {
+    margin-bottom: 20px;
+    font-size: 30px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.login-container img {
+    width: 21px;
+    margin-bottom: 9px;
+    margin-top: 9px;
+}
+
+.btn-google {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: #fff;
+    color: #555;
+    border: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.btn-google img {
+    margin-right: 8px;
+    width: 20px;
+}
+
+.help-text {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.input-email {
+    border-radius: calc(.5rem - 2px);
+    height: 3.1em;
+    margin-bottom: 20px;
+}
+
+.input-icon {
+    position: relative;
+    width: 100%;
+}
+
+.input-icon input {
+    padding-left: 35px;
+}
+
+.input-icon-svg {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    pointer-events: none;
+}
+
+input, .input-email, hr {
+    border-color: #eee;
+}
+
+.btn-custom-confirm {
+    background-color: #007bff !important;
+    border-color: #007bff !important;
+    color: #fff;
+    padding: 10px 24px;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+.btn-custom-confirm:hover {
+    background-color: #0056b3 !important;
+    border-color: #0056b3 !important;
+}
+
+.btn-custom-confirm:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.container-centralizado {
+    text-align: center;
+}
