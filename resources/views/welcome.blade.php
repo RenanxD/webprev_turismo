@@ -40,7 +40,7 @@
             width: 100%;
             height: auto;
             border-bottom: 1px solid #ddd;
-            max-height: 50%; /* Limita a altura da imagem */
+            max-height: 75%; /* Limita a altura da imagem */
             object-fit: cover; /* Mantém a proporção da imagem */
         }
 

@@ -3,7 +3,16 @@
 @section('content')
     <div class="acessar-comprovante-container">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <x-botao-voltar></x-botao-voltar>
+            <button onclick="redirectToSignIn()" class="btn-back botao-voltar mr-2" aria-label="Voltar">
+                <div class="circle d-flex align-items-center justify-content-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="lucide lucide-arrow-left">
+                        <path d="m12 19-7-7 7-7"></path>
+                        <path d="M19 12H5"></path>
+                    </svg>
+                </div>
+            </button>
             <h3 class="comprovante-titulo">Comprovantes</h3>
         </div>
         <div class="justify-content-center d-flex mt-4">
@@ -22,41 +31,47 @@
                             <x-logos.logo-nada-consta />
                             <p style="font-weight: bold; color: #ABABAB; font-size: 20px;">Nada consta</p>
                         </div>
+                    @else
+                        @foreach($comprovantes as $comprovante)
+                            <a href="/{{ $cidade->slug }}/comprovante/download/{{ $comprovante->id_comprovante }}"
+                               target="_blank"
+                               class="card mb-4 card-acessar-comprovante text-decoration-none"
+                               style="color: inherit;">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="text-left">
+                                            <p class="card-text">
+                                                Nº <strong>{{ now()->year }}/{{ sprintf('%05d', $comprovante->id_comprovante) }}</strong>
+                                            </p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="card-text">
+                                                <strong>Data da emissão:</strong> {{ $comprovante->comprovante_data_emissao }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-3">
+                                        <div class="text-left">
+                                            <p class="card-text">
+                                                Região: <strong>{{ $cidade->cidade_descricao }}</strong>
+                                            </p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="card-text">
+                                                <strong>1 dia(s)</strong> de permanência:<br>
+                                                <strong>{{ $comprovante->comprovante_data_inicio }} à {{ $comprovante->comprovante_data_fim }}</strong>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+
+                        <!-- Botões de paginação -->
+                        <div class="mt-4">
+                            {{ $comprovantes->links('pagination::bootstrap-4') }}
+                        </div>
                     @endif
-                    @foreach($comprovantes as $comprovante)
-                        <a href="/{{ $cidade->slug }}/comprovante/download/{{ $comprovante->id_comprovante }}"
-                           target="_blank"
-                           class="card mb-4 card-acessar-comprovante text-decoration-none"
-                           style="color: inherit;">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <div class="text-left">
-                                        <p class="card-text">
-                                            Nº <strong>{{ $comprovante->id_comprovante }}</strong>
-                                        </p>
-                                    </div>
-                                    <div class="text-right">
-                                        <p class="card-text">
-                                            <strong>Data da emissão:</strong> {{ $comprovante->comprovante_data_emissao }}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between mt-3">
-                                    <div class="text-left">
-                                        <p class="card-text">
-                                            Região: <strong>{{ $cidade->cidade_descricao }}</strong>
-                                        </p>
-                                    </div>
-                                    <div class="text-right">
-                                        <p class="card-text">
-                                            <strong>1 dia(s)</strong> de permanência:<br>
-                                            <strong>{{ $comprovante->comprovante_data_inicio }} à {{ $comprovante->comprovante_data_fim }}</strong>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    @endforeach
                 </div>
             </div>
 
@@ -172,6 +187,51 @@
 
         .comprovantes-cards {
             margin-top: 25px;
+        }
+    </style>
+    <script>
+        function redirectToSignIn() {
+            const slug = "{{ $cidade->slug }}"; // Substitua com a variável correta do Blade
+            const token = "{{ $token }}";      // Substitua com a variável correta do Blade
+
+            window.location.href = `/${slug}/signin/${token}`;
+        }
+    </script>
+    <style>
+        .btn-back {
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        .circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #d0e7ff; /* Cor de fundo do círculo */
+        }
+
+        .lucide-arrow-left {
+            color: #000000; /* Cor da flecha (preto) */
+        }
+
+        @media (max-width: 576px) {
+            .btn-back {
+                padding: 5px;
+            }
+
+            .circle {
+                width: 30px;
+                height: 30px;
+            }
+
+            span {
+                font-size: 20px;
+            }
         }
     </style>
 @endsection

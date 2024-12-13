@@ -7,10 +7,7 @@
                 <x-logos.logo-calendario class="me-2"/>
                 <div>
                     <strong>Data </strong>de Permanência<br>
-                    <span
-                        style="font-size: 11px;"><strong><span
-                                class="resumoDataInicial"></span></strong> a <strong><span
-                                class="resumoDataFinal"></span></strong></span>
+                    <span style="font-size: 13px;"><strong><span class="resumoDataInicial"></span></strong> <span style="font-size: 13px;">à</span> <strong><span class="resumoDataFinal"></span></strong></span>
                 </div>
             </div>
         </div>
@@ -38,7 +35,7 @@
                     <strong>CPF: </strong><span class="resumoCpf"></span><br>
                 </div>
                 <div class="ml-auto">
-                    <span>Detalhes <i class="arrow fas fa-chevron-up"></i></span>
+                    <span>Detalhes <i class="arrow fas fa-chevron-down"></i></span>
                 </div>
             </div>
         </div>
@@ -165,7 +162,7 @@
              aria-controls="collapseContent">
             <span>Valores e Taxas</span>
             <hr>
-            <span>Detalhes <i class="arrow fas fa-chevron-up"></i></span>
+            <span>Detalhes <i class="arrow fas fa-chevron-down"></i></span>
         </div>
         <div class="collapse" id="collapseContent">
             <div class="card card-body mt-2">
@@ -198,7 +195,7 @@
     </div>
     <div class="d-flex justify-content-between mt-4">
         <button type="button" class="btn btn-outline-secondary flex-fill mr-2" onclick="prevStep()">Voltar</button>
-        <button type="submit" id="submitButton" data-url="{{ route('form.submit') }}" class="btn btn-success flex-fill">Finalizar</button>
+        <button type="submit" id="submitButton" data-url="{{ route('form.submit') }}" class="btn btn-primary flex-fill">Finalizar</button>
     </div>
 </div>
 <style>
@@ -227,6 +224,12 @@
     #loading img {
         width: 50px;
         height: auto;
+    }
+
+    .resumoRua {
+        white-space: nowrap; /* Não permite quebrar linha */
+        overflow: hidden; /* Oculta o conteúdo que ultrapassa */
+        text-overflow: ellipsis; /* Adiciona "..." ao final do texto */
     }
 </style>
 <script>

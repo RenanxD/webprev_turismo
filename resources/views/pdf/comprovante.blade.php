@@ -103,7 +103,7 @@
 <div class="section-title">Turistas</div>
 <table class="details">
     <tr>
-        <td>1. Renan de Paula da Silva</td>
+        <td>{{ $nome }}</td>
         <td class="text-right">Total: 1</td>
     </tr>
 </table>
