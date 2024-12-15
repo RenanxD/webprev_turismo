@@ -114,6 +114,7 @@ $(document).ready(function () {
         const dataFinal = $('#data_final').val();
         const estrangeiro = $('input[name="turista_estrangeiro"]:checked').val();
         const cpf = $('#turista_cpf').val();
+        const passaporte = $('#turista_passaporte').val();
         const nome = $('#turista_nome').val();
         const email = $('#turista_email').val();
         const telefone = $('#turista_fone1').val();
@@ -124,17 +125,25 @@ $(document).ready(function () {
         const cep = $('#turista_endereco_cep').val();
         const rua = $('#turista_endereco').val();
         const bairro = $('#turista_endereco_bairro').val();
+        const complemento = $('#turista_endereco_complemento').val();
         const numero = $('#turista_endereco_numero').val();
         const necessidadeEspecial = $('input[name="turista_necessidade_esp_opcao"]:checked').val();
 
         $('.resumoDataInicial').text(dataInicial);
         $('.resumoDataFinal').text(dataFinal);
+
         if (estrangeiro === 'sim') {
+            $('#resumo-cpf').hide();
+            $('#resumo-passaporte').show();
+            $('.resumoPassaporte').text(passaporte);
             $('#resumoEstrangeiroSim').prop('checked', true);
         } else {
+            $('#resumo-passaporte').hide();
+            $('#resumo-cpf').show();
+            $('.resumoCpf').text(cpf);
             $('#resumoEstrangeiroNao').prop('checked', true);
         }
-        $('.resumoCpf').text(cpf);
+
         $('.resumoNome').text(nome);
         $('.resumoEmail').text(email);
         $('.resumoTelefone').text(telefone);
@@ -145,7 +154,9 @@ $(document).ready(function () {
         $('.resumoCep').text(cep);
         $('.resumoRua').text(rua);
         $('.resumoBairro').text(bairro);
+        $('.resumoComplemento').text(complemento);
         $('.resumoNumero').text(numero);
+
         if (necessidadeEspecial === 'sim') {
             $('#resumoNecessidadeEspecialSim').prop('checked', true);
 

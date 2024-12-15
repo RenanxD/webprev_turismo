@@ -26,7 +26,7 @@
             <input type="text" class="form-control" id="turista_fone1" name="turista_fone1" placeholder="Telefone Celular" required>
         </div>
         <div class="form-group col-md-6">
-            <input type="date" class="form-control" id="turista_data_nascimento" name="turista_data_nascimento" placeholder="Data de aniversário" required>
+            <input type="text" class="form-control" id="turista_data_nascimento" name="turista_data_nascimento" placeholder="Data de aniversário" required>
             <small id="date-error" style="color: red; display: none;">Você deve ter pelo menos 18 anos.</small>
         </div>
     </div>
@@ -60,13 +60,16 @@
         <div class="form-group col-md-2">
             <input type="text" class="form-control" id="turista_endereco_cep" name="turista_endereco_cep" placeholder="CEP" onblur="pesquisacep(this.value)" required>
         </div>
-        <div class="form-group col-md-5" id="ruaField">
+        <div class="form-group col-md-4" id="ruaField">
             <input type="text" class="form-control" id="turista_endereco" name="turista_endereco" placeholder="Rua" readonly>
         </div>
-        <div class="form-group col-md-3" id="bairroField">
+        <div class="form-group col-md-2" id="bairroField">
             <input type="text" class="form-control" id="turista_endereco_bairro" name="turista_endereco_bairro" placeholder="Bairro" readonly>
         </div>
-        <div class="form-group col-md-2" id="numeroField">
+        <div class="form-group col-md-3" id="complementoField">
+            <input type="text" class="form-control" id="turista_endereco_complemento" name="turista_endereco_complemento" placeholder="Complemento" required>
+        </div>
+        <div class="form-group col-md-1" id="numeroField">
             <input type="text" class="form-control" id="turista_endereco_numero" name="turista_endereco_numero" placeholder="Nº" required>
         </div>
     </div>
@@ -122,16 +125,23 @@
     const turistaInput = document.getElementById('turista_cpf');
 
     function toggleTuristaInput() {
+        turistaInput.value = '';
+
+        $(turistaInput).unmask();
+
         if (estrangeiroSim.checked) {
             turistaInput.placeholder = 'Passaporte';
             turistaInput.name = 'turista_passaporte';
             turistaInput.id = 'turista_passaporte';
             turistaInput.required = true;
+            turistaInput.setAttribute('maxlength', '12');
         } else {
             turistaInput.placeholder = 'CPF';
             turistaInput.name = 'turista_cpf';
             turistaInput.id = 'turista_cpf';
             turistaInput.required = true;
+            turistaInput.removeAttribute('maxlength');
+            $(turistaInput).mask('000.000.000-00');
         }
     }
 

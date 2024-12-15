@@ -23,6 +23,7 @@ class Turista extends Model
         'turista_endereco_cep',
         'turista_endereco',
         'turista_endereco_bairro',
+        'turista_endereco_complemento',
         'turista_endereco_numero',
         'turista_necessidade_esp',
         'turista_dependente',

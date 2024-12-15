@@ -18,9 +18,8 @@ class AcessarComprovante
         $token = Session::get('auth_token');
 
         if ($turista) {
-            // Ordena pelo mais recente e aplica paginação
             $comprovantes = ComprovanteTaxa::where('id_turista', $turista->id_turista)
-                ->orderBy('comprovante_data_emissao', 'desc') // Ordenação decrescente
+                ->orderBy('comprovante_data_emissao', 'desc')
                 ->paginate(4);
         }
 

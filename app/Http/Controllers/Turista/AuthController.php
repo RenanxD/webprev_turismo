@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Turista;
 use App\Http\Controllers\Controller;
 use App\Mail\LoginLinkMail;
 use App\Models\Cidade;
+use App\Models\Comprovante\ComprovanteTaxa;
 use App\Models\Configuracoes\Cobrancas;
 use App\Models\Turista\Turista;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
@@ -57,9 +57,28 @@ class AuthController extends Controller
         $cobrancaAtual = Cobrancas::where('cobranca_ativa', true)->latest()->first()
             ?? Cobrancas::latest()->first();
         $email = session('email');
-
+        $token = Session::get('auth_token');
         $cliente = Turista::where('turista_email', $email)->first();
 
-        return view('turista.complete-registration', compact('email', 'slug', 'cobrancaAtual', 'cliente'));
+        $datasComprovantes = collect();
+        if ($cliente) {
+            $datasComprovantes = ComprovanteTaxa::where('id_turista', $cliente->id_turista)
+                ->select('comprovante_data_inicio', 'comprovante_data_fim')
+                ->get();
+        }
+
+        return view('turista.complete-registration', [
+            'email' => $email,
+            'slug' => $slug,
+            'cobrancaAtual' => $cobrancaAtual,
+            'cliente' => $cliente,
+            'token' => $token,
+            'datasComprovantes' => $datasComprovantes->map(function ($comprovante) {
+                return [
+                    'inicio' => \Carbon\Carbon::parse($comprovante->comprovante_data_inicio)->toDateString(),
+                    'fim' => \Carbon\Carbon::parse($comprovante->comprovante_data_fim)->toDateString(),
+                ];
+            }),
+        ]);
     }
 }

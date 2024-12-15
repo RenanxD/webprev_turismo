@@ -15,7 +15,7 @@ class TuristaRequest extends FormRequest
     public function rules()
     {
         return [
-            'turista_cpf' => 'required',
+            'turista_cpf' => 'nullable',
             'turista_passaporte' => 'nullable',
             'turista_nome' => 'required',
             'turista_email' => 'required',
@@ -27,6 +27,7 @@ class TuristaRequest extends FormRequest
             'turista_endereco_cep' => 'required',
             'turista_endereco' => 'required',
             'turista_endereco_bairro' => 'required',
+            'turista_endereco_complemento' => 'nullable',
             'turista_endereco_numero' => 'required',
             'turista_necessidade_esp' => 'required|boolean',
             'turista_dependente' => 'required|boolean',

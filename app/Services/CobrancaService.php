@@ -19,13 +19,16 @@ class CobrancaService
 
     public function gerarCobranca(array $turista): array
     {
-        if (empty($turista['turista_cpf']) || empty($turista['id_turista']) || empty($turista['turista_nome'])) {
+        if (empty($turista['id_turista']) || empty($turista['turista_nome']) || (!$turista['turista_estrangeiro'] && empty($turista['turista_cpf'])) || ($turista['turista_estrangeiro'] && empty($turista['turista_passaporte']))) {
             return ['error' => 'Dados do turista inválidos.'];
         }
 
         $dataGeracao = Carbon::now();
         $dataVencimento = $dataGeracao->copy()->addDays(3);
-        $cpf = str_replace(['.', '-'], '', $turista['turista_cpf']);
+
+        $documento = $turista['turista_estrangeiro']
+            ? $turista['turista_passaporte']
+            : str_replace(['.', '-'], '', $turista['turista_cpf']);
 
         $cobrancaData = [
             [
@@ -50,7 +53,7 @@ class CobrancaService
                 "mensagem" => "Não receber após 12/06/2024",
                 "tags" => "guia-previdenciaria",
                 "pagador_id" => strval($turista['id_turista']),
-                "pagador_cpf_cnpj" => $cpf,
+                "pagador_cpf_cnpj" => $documento,
                 "pagador_nome" => $turista['turista_nome'],
             ]
         ];

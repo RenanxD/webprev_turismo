@@ -11,7 +11,7 @@
     <div class="form-row justify-content-center text-start">
         <div class="form-group col-md-4 position-relative">
             <label for="data_inicial">Data Inicial</label>
-            <input type="date"
+            <input type="text"
                    class="form-control"
                    id="data_inicial"
                    name="data_inicial"
@@ -25,7 +25,7 @@
     <div class="form-row justify-content-center text-start">
         <div class="form-group col-md-4 position-relative">
             <label for="data_final">Data Final</label>
-            <input type="date"
+            <input type="text"
                    class="form-control"
                    id="data_final"
                    name="data_final"
@@ -60,4 +60,192 @@
         </button>
     </div>
 </div>
-<script src="{{ asset('js/turista/data-cobranca.js') }}"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+<script>
+    window.onload = function() {
+        var today = new Date();
+        var day = ("0" + today.getDate()).slice(-2);
+        var month = ("0" + (today.getMonth() + 1)).slice(-2);
+        var year = today.getFullYear();
+        var currentDate = year + "-" + month + "-" + day;
+
+        document.getElementById('data_inicial').setAttribute('min', currentDate);
+        document.getElementById('data_final').setAttribute('min', currentDate);
+
+        var datasComprovantes = @json($datasComprovantes);
+
+        var datasBloqueadas = datasComprovantes.map(function(item) {
+            return {
+                from: item.inicio,
+                to: item.fim
+            };
+        });
+
+        // Inicializa os campos de data com o calendário Bootstrap
+        $('#data_inicial').datepicker({
+            format: 'yyyy-mm-dd',
+            startDate: currentDate,
+            beforeShowDay: function(date) {
+                var dateString = date.toISOString().split('T')[0]; // Formata a data para o formato YYYY-MM-DD
+                for (var i = 0; i < datasBloqueadas.length; i++) {
+                    if (dateString >= datasBloqueadas[i].from && dateString <= datasBloqueadas[i].to) {
+                        return { classes: 'disabled', tooltip: 'Data bloqueada' };
+                    }
+                }
+                return true;
+            },
+            onChangeDate: function() {
+                handleDateChange();
+            }
+        });
+
+        $('#data_final').datepicker({
+            format: 'yyyy-mm-dd',
+            startDate: currentDate,
+            beforeShowDay: function(date) {
+                var dateString = date.toISOString().split('T')[0]; // Formata a data para o formato YYYY-MM-DD
+                for (var i = 0; i < datasBloqueadas.length; i++) {
+                    if (dateString >= datasBloqueadas[i].from && dateString <= datasBloqueadas[i].to) {
+                        return { classes: 'disabled', tooltip: 'Data bloqueada' };
+                    }
+                }
+                return true;
+            },
+            onChangeDate: function() {
+                calcularDias();
+            }
+        });
+
+        // Inicializa a data mínima para o campo de data final após a carga da página
+        setMinFinalDate();
+    }
+
+    function setMinFinalDate() {
+        var minDays = document.getElementById('data_inicial').dataset.minDays;
+        var dataInicial = document.getElementById('data_inicial').value;
+
+        if (dataInicial) {
+            var initialDate = new Date(dataInicial);
+            initialDate.setDate(initialDate.getDate() + parseInt(minDays));
+
+            var day = ("0" + initialDate.getDate()).slice(-2);
+            var month = ("0" + (initialDate.getMonth() + 1)).slice(-2);
+            var year = initialDate.getFullYear();
+            var minFinalDate = year + "-" + month + "-" + day;
+
+            $('#data_final').datepicker('setStartDate', minFinalDate);
+        }
+    }
+
+    function calcularDias() {
+        const dataInicial = document.getElementById('data_inicial').value;
+        const dataFinal = document.getElementById('data_final').value;
+
+        if (dataInicial && dataFinal) {
+            const date1 = new Date(dataInicial);
+            const date2 = new Date(dataFinal);
+            const diffTime = Math.abs(date2 - date1);
+            let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            diffDays += 1;
+
+            document.getElementById('dias_selecionados').innerText = diffDays;
+            document.getElementById('diasInfo').style.display = 'block';
+        } else {
+            document.getElementById('diasInfo').style.display = 'none';
+        }
+    }
+
+    function handleDateChange() {
+        setMinFinalDate();
+        calcularDias();
+    }
+</script>
+<style>
+    .datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-bottom {
+        top: 361px !important;
+    }
+
+    .datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top {
+        top: 98px !important;
+    }
+
+    /* Estilo geral para o calendário */
+    .datepicker {
+        background-color: #f8f9fa; /* Cor de fundo */
+        border: 1px solid #ccc; /* Borda */
+        border-radius: 5px; /* Bordas arredondadas */
+    }
+
+    /* Estilo para o dropdown do calendário */
+    .datepicker-dropdown {
+        border: 1px solid #007bff; /* Borda do dropdown */
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.2); /* Sombra do dropdown */
+    }
+
+    /* Estilo para o painel de dias */
+    .datepicker-days {
+        background-color: #ffffff; /* Cor de fundo dos dias */
+        padding: 10px;
+    }
+
+    /* Estilo para as células de dias */
+    .datepicker-days td {
+        font-size: 14px; /* Tamanho da fonte */
+        padding: 8px; /* Padding das células */
+        cursor: pointer;
+    }
+
+    /* Estilo para as células de datas desabilitadas */
+    .datepicker-days .disabled {
+        background-color: #f1f1f1; /* Cor de fundo para datas desabilitadas */
+        color: #ccc; /* Cor do texto */
+        pointer-events: none; /* Impede interação */
+    }
+
+    /* Estilo para a célula de data ativa */
+    .datepicker-days .active {
+        background-color: #007bff; /* Cor de fundo para a data ativa */
+        color: white; /* Cor do texto para a data ativa */
+        border-radius: 50%; /* Bordas arredondadas */
+    }
+
+    /* Estilo para os dias da semana (ex.: dom, seg, ter, etc.) */
+    .datepicker-days th {
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    /* Estilo para o cabeçalho do calendário (mês, ano) */
+    .datepicker-header {
+        background-color: #007bff;
+        color: white;
+        text-align: center;
+        padding: 5px 0;
+    }
+
+    /* Estilo para o botão de navegação do mês (próximo e anterior) */
+    .datepicker .prev, .datepicker .next {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    /* Estilo para os dias do mês (domingo, segunda-feira, etc.) */
+    .datepicker-days th {
+        text-align: center;
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    #data_inicial {
+        text-align: center;  /* Centraliza o conteúdo do input */
+    }
+
+    #data_final {
+        text-align: center;  /* Centraliza o conteúdo do input */
+    }
+</style>

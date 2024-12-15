@@ -3,7 +3,13 @@ $(document).ready(function () {
     var maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
     var maxDateString = maxDate.toISOString().split('T')[0];
 
-    $('#turista_data_nascimento').attr('max', maxDateString);
+    $('#turista_data_nascimento').datepicker({
+        format: 'yyyy-mm-dd',
+        endDate: maxDateString,
+        autoclose: true,
+        todayBtn: 'linked',
+        clearBtn: true
+    });
 
     $('#turista_data_nascimento').on('change', function () {
         var selectedDate = new Date($(this).val());

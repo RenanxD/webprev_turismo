@@ -6,7 +6,7 @@ function pesquisacep(valor) {
                 if (!data.erro) {
                     $('#turista_endereco').val(data.logradouro);
                     $('#turista_endereco_bairro').val(data.bairro);
-                    $('#ruaField, #bairroField, #numeroField').addClass('show');
+                    $('#ruaField, #bairroField, #numeroField, #complementoField').addClass('show');
                 } else {
                     alert('CEP não encontrado.');
                 }

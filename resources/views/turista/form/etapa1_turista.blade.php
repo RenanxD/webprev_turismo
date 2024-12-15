@@ -11,7 +11,8 @@
     <div class="form-row">
         <div class="form-group col-md-6">
             <input type="text" class="form-control" id="turista_cpf" name="turista_cpf" placeholder="CPF"
-                   value="{{ $cliente->turista_cpf ?? '' }}" {{ $cliente ? 'readonly' : '' }} required>
+                   value="{{ $cliente->turista_estrangeiro ? $cliente->turista_passaporte ?? '' : $cliente->turista_cpf ?? '' }}"
+                   {{ $cliente ? 'readonly' : '' }} required>
         </div>
     </div>
     <div class="form-row">
@@ -33,8 +34,8 @@
                    value="{{ $cliente->turista_fone1 ?? '' }}" required>
         </div>
         <div class="form-group col-md-6">
-            <input type="date" class="form-control" id="turista_data_nascimento" name="turista_data_nascimento"
-                   value="{{ $cliente->turista_data_nascimento ?? '' }}" required>
+            <input type="text" class="form-control" id="turista_data_nascimento" name="turista_data_nascimento"
+                   value="{{ $cliente->turista_data_nascimento ?? '' }}" tabindex="0" required>
         </div>
     </div>
     <div class="form-row">
@@ -43,15 +44,19 @@
                    placeholder="CEP" value="{{ $cliente->turista_endereco_cep }}" onblur="pesquisacep(this.value)"
                    required>
         </div>
-        <div class="form-group col-md-5" id="ruaField">
+        <div class="form-group col-md-4" id="ruaField">
             <input type="text" class="form-control" id="turista_endereco" name="turista_endereco" placeholder="Rua"
                    value="{{ $cliente->turista_endereco }}" readonly>
         </div>
-        <div class="form-group col-md-3" id="bairroField">
+        <div class="form-group col-md-2" id="bairroField">
             <input type="text" class="form-control" id="turista_endereco_bairro" name="turista_endereco_bairro"
                    placeholder="Bairro" value="{{ $cliente->turista_endereco_bairro }}" readonly>
         </div>
-        <div class="form-group col-md-2" id="numeroField">
+        <div class="form-group col-md-3" id="complementoField">
+            <input type="text" class="form-control" id="turista_endereco_complemento" name="turista_endereco_complemento"
+                   placeholder="Complemento" value="{{ $cliente->turista_endereco_complemento }}" readonly>
+        </div>
+        <div class="form-group col-md-1" id="numberField">
             <input type="text" class="form-control" id="turista_endereco_numero" name="turista_endereco_numero"
                    placeholder="Nº" value="{{ $cliente->turista_endereco_numero }}" required>
         </div>
@@ -168,6 +173,41 @@
     }
 
     toggleDependenteButton();
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const estrangeiroSim = document.getElementById('estrangeiro_sim');
+        const estrangeiroNao = document.getElementById('estrangeiro_nao');
+        const documentoInput = document.getElementById('turista_cpf');
+
+        function toggleDocumentoInput() {
+            const currentValue = documentoInput.value;
+
+            documentoInput.value = '';
+            $(documentoInput).unmask();
+
+            if (estrangeiroSim.checked) {
+                documentoInput.placeholder = 'Passaporte';
+                documentoInput.name = 'turista_passaporte';
+                documentoInput.id = 'turista_passaporte';
+                documentoInput.required = true;
+                documentoInput.setAttribute('maxlength', '12');
+                documentoInput.value = currentValue;
+            } else {
+                documentoInput.placeholder = 'CPF';
+                documentoInput.name = 'turista_cpf';
+                documentoInput.id = 'turista_cpf';
+                documentoInput.required = true;
+                $(documentoInput).mask('000.000.000-00');
+                documentoInput.value = currentValue;
+            }
+        }
+
+        estrangeiroSim.addEventListener('change', toggleDocumentoInput);
+        estrangeiroNao.addEventListener('change', toggleDocumentoInput);
+
+        toggleDocumentoInput();
+    });
 </script>
 <style>
     .modal {

@@ -32,7 +32,12 @@
                 <x-logos.logo-turista class="me-2"/>
                 <div>
                     <strong>Nome: </strong><span class="resumoNome"></span><br>
-                    <strong>CPF: </strong><span class="resumoCpf"></span><br>
+                    <div id="resumo-cpf" style="display: none;">
+                        <strong>CPF: </strong><span class="resumoCpf"></span><br>
+                    </div>
+                    <div id="resumo-passaporte" style="display: none;">
+                        <strong>Passaporte: </strong><span class="resumoPassaporte"></span><br>
+                    </div>
                 </div>
                 <div class="ml-auto">
                     <span>Detalhes <i class="arrow fas fa-chevron-down"></i></span>
@@ -66,7 +71,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-2">
-                        <span class="resumoCpf form-control"></span>
+                        <span class="resumoCpf resumoPassaporte form-control"></span>
                     </div>
                 </div>
                 <div class="row">
@@ -102,11 +107,14 @@
                     <div class="col-md-3 mb-2">
                         <span class="resumoCep form-control"></span>
                     </div>
-                    <div class="col-md-4 mb-2">
+                    <div class="col-md-3 mb-2">
                         <span class="resumoRua form-control"></span>
                     </div>
-                    <div class="col-md-3 mb-2">
+                    <div class="col-md-2 mb-2">
                         <span class="resumoBairro form-control"></span>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <span class="resumoComplemento form-control"></span>
                     </div>
                     <div class="col-md-2 mb-2">
                         <span class="resumoNumero form-control"></span>
@@ -184,11 +192,11 @@
                 </table>
                 <div class="mt-3">
                     <strong>Total de Taxas:</strong> <span
-                        id="totalTaxas">R$ {{ $cobrancaAtual->cobranca_valor ?? '' }}</span>
+                            id="totalTaxas">R$ {{ $cobrancaAtual->cobranca_valor ?? '' }}</span>
                 </div>
                 <div class="mt-2">
                     <strong>Total Geral:</strong> <span
-                        id="totalGeral">R$ {{ $cobrancaAtual->cobranca_valor ?? '' }}</span>
+                            id="totalGeral">R$ {{ $cobrancaAtual->cobranca_valor ?? '' }}</span>
                 </div>
             </div>
         </div>

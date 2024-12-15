@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::connection('external_pgsql')->create('cadastro_turista', function (Blueprint $table) {
             $table->id('id_turista');
-            $table->string('turista_cpf');
+            $table->string('turista_cpf')->nullable();
             $table->string('turista_passaporte')->nullable();
             $table->string('turista_nome');
             $table->string('turista_email')->nullable();
@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('turista_endereco_cep')->nullable();
             $table->string('turista_endereco')->nullable();
             $table->string('turista_endereco_bairro')->nullable();
+            $table->string('turista_endereco_complemento')->nullable();
             $table->smallInteger('turista_endereco_numero')->nullable();
             $table->string('turista_necessidade_esp')->nullable();
             $table->boolean('turista_dependente')->default(false);

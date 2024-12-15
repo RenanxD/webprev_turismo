@@ -339,13 +339,13 @@ body, html {
     background-color: #4a90e2;
 }
 
-#ruaField, #bairroField, #numeroField {
+#ruaField, #bairroField, #numeroField, #complementoField {
     transition: opacity 0.3s ease, transform 0.3s ease;
     transform: translateY(-10px);
     opacity: 0;
 }
 
-#ruaField.show, #bairroField.show, #numeroField.show {
+#ruaField.show, #bairroField.show, #numeroField.show, #complementoField.show {
     opacity: 1;
     transform: translateY(0);
 }
